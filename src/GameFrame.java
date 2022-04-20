@@ -53,7 +53,6 @@ public class GameFrame extends JFrame {
             nonSummIndex = lstLevel.getSelectedIndex();
             nonSummLabel.setText(nonSumm);
             lstLevel.removeListSelectionListener(nonSummListener);
-
             //ReadFile();
             startGame();
         }
@@ -65,7 +64,8 @@ public class GameFrame extends JFrame {
     private  void readFileDB() {
         try{
             Class.forName("org.sqlite.JDBC");
-            Connection conn = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\Vasilev\\IdeaProjects\\sqlite\\question.db");
+            //Connection conn = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\Vasilev\\IdeaProjects\\sqlite\\question.db");
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:.\\src\\question.db");
 
             Statement statmt = conn.createStatement();
             String query = "select quest, one, two, three, four, right, level from quest";
@@ -143,7 +143,18 @@ public class GameFrame extends JFrame {
         helpButtons =4;
         NextStep();
     }
+    private void pauseGame() {
+        questionLabel1.setText("Выберите несгораемую сумму");
+        nonSummLabel.setText("0");
+        lstLevel.setSelectedIndex(15);
+        lstLevel.addListSelectionListener(nonSummListener);
+        JButton[] btns = new JButton[]{ button1,помощьЗалаButton, звонокДругуButton,
+                правоНаОшибкуButton,заменаВопросаButton, забратьДеньгиButton,answersButton1, answersButton3,
+                answersButton2, answersButton4 };
 
+        for(JButton btn: btns)
+            btn.setEnabled(false);
+    }
 
 
 
@@ -257,10 +268,7 @@ public class GameFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Object index = lstLevel.getSelectedValue();
                 JOptionPane.showMessageDialog(GameFrame.this, "Вы молодцы! Вы выйграли " + index.toString());
-                questionLabel1.setText("Выберите несгораемую сумму");
-                nonSummLabel.setText("0");
-                lstLevel.setSelectedIndex(15);
-                lstLevel.addListSelectionListener(nonSummListener);
+                pauseGame();
             }
         });
         questionLabel1.setText("Выберите несгораемую сумму");
@@ -303,10 +311,7 @@ public class GameFrame extends JFrame {
                     message += "Вы проиграли";
                 }
                 JOptionPane.showMessageDialog(this, message);
-                questionLabel1.setText("Выберите несгораемую сумму");
-                nonSummLabel.setText("0");
-                lstLevel.setSelectedIndex(15);
-                lstLevel.addListSelectionListener(nonSummListener);
+                pauseGame();
                 //startGame();
             }
             errorCanBeen = false;
