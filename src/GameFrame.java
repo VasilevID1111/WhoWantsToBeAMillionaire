@@ -161,7 +161,7 @@ public class GameFrame extends JFrame {
     public GameFrame() {
 
 
-        lstLevel.setSelectedIndex(15);
+        //lstLevel.setSelectedIndex(15);
         readFileDB();
         //ReadFile();
         //startGame();
@@ -271,8 +271,9 @@ public class GameFrame extends JFrame {
                 pauseGame();
             }
         });
-        questionLabel1.setText("Выберите несгораемую сумму");
-        lstLevel.addListSelectionListener(nonSummListener);
+        //questionLabel1.setText("Выберите несгораемую сумму");
+        //lstLevel.addListSelectionListener(nonSummListener);
+        pauseGame();
     }
 
 
